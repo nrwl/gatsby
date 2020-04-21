@@ -10,5 +10,13 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "gatsby-plugin": {
+      "tags": []
+    },
+    "gatsby-plugin-e2e": {
+      "tags": [],
+      "implicitDependencies": ["gatsby-plugin"]
+    }
+  }
 }
