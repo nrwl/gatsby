@@ -11,7 +11,7 @@ import {
   gatsbyPluginManifestVersion,
   gatsbyPluginOfflineVersion,
   gatsbyPluginReactHelmetVersion,
-  gatsbyPluginSharpVersion, gatsbySourceFilesystemVersion, gatsbyTransformerSharpVersion,
+  gatsbyPluginSharpVersion, gatsbyPluginTypescript, gatsbySourceFilesystemVersion, gatsbyTransformerSharpVersion,
   gatsbyVersion,
   nxVersion, prettierVersion, propTypesVersion,
   reactDomVersion, reactHelmetVersion,
@@ -61,11 +61,15 @@ export default function(schema: Schema) {
         'prop-types': propTypesVersion,
         'react': reactVersion,
         'react-dom': reactDomVersion,
-        'react-helmet': reactHelmetVersion
+        'react-helmet': reactHelmetVersion,
+        'gatsby-plugin-typescript': gatsbyPluginTypescript
       },
       {
         // '@nrwl/gatsby': nxVersion,
-        'prettier': prettierVersion
+        // react dep is not needed, remove
+        '@nrwl/react': nxVersion,
+        'prettier': prettierVersion,
+        'babel-plugin-module-resolver': '4.0.0'
       }
     )
   ]);

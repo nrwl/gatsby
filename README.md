@@ -23,7 +23,7 @@ gatsby new [<app-name> [<starter-url>]]
 nx g @nrwl/gatsby:app <app-name>
 ```
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+When using Nx, you can create multiple applications and themes in the same workspace.
 
 Command parameters aren't yet supported by the plugin.
 
@@ -59,9 +59,27 @@ gatsby build [--prefix-paths [--no-uglify [--profile [--open-tracing-config-file
 nx build <app-name>
 ```
 
-The build artifacts will be stored in the `dist/` directory.
-
 Command parameters aren't yet supported by the plugin.
+
+To build the application and serve it, run:
+
+```
+gatsby build <app-name> --serve
+```
+
+## Using components from React library
+You can use a component from React library generated using Nx package for React. Once you run:
+
+```
+nx g @nrwl/react:lib ui
+```
+
+the `libs/ui` directory with sample `Ui` component is added to the workspace. 
+You can import it like this in your Gatsby files:
+
+```jsx
+import { Ui } from 'libs/ui/src';
+```
 
 ## Further help
 

@@ -1,18 +1,13 @@
-import {
-  checkFilesExist,
-  ensureNxProject,
-  readJson,
-  runNxCommandAsync,
-  uniq
-} from '@nrwl/nx-plugin/testing';
+import { ensureNxProject, runNxCommandAsync, uniq } from '@nrwl/nx-plugin/testing';
 
 describe('gatsby-plugin e2e', () => {
-  it('should create gatsby application and build it', async done => {
-    // gatsby build runs more that default 5000ms
-    // so we need to adjust the timeout
-    jest.setTimeout(300000);
+  const plugin = uniq('testapp');
 
-    const plugin = uniq('testapp');
+  // gatsby build runs more that default 5000ms
+  // so we need to adjust the timeout
+  jest.setTimeout(300000);
+
+  beforeAll(async (done) => {
     ensureNxProject(
       '@nrwl/gatsby',
       'dist/libs/gatsby-plugin'
@@ -20,10 +15,12 @@ describe('gatsby-plugin e2e', () => {
     await runNxCommandAsync(
       `generate @nrwl/gatsby:app ${plugin}`
     );
+    done();
+  });
 
+  it('should build gatsby application', async done => {
     const result = await runNxCommandAsync(`build ${plugin}`);
     expect(result.stdout).toContain('Done building in');
-
     done();
   });
 });

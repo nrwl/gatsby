@@ -4,41 +4,77 @@ import { join } from 'path';
 import { Observable } from 'rxjs';
 import { GatsbyPluginBuilderSchema } from './schema';
 
-import { move } from 'fs-extra';
-
 export function runBuilder(
   options: GatsbyPluginBuilderSchema,
   context: BuilderContext
 ): Observable<BuilderOutput> {
   return new Observable(subscriber => {
-    const cp = fork(join(context.workspaceRoot, './node_modules/gatsby-cli/lib/index.js'), ['build'], {
-      cwd: join(context.workspaceRoot, `apps/${context.target.project}`)
+    if (options.serve) {
+      runGatsbyBuild(context.workspaceRoot, context.target.project)
+        .then(() => runGatsbyServe(context.workspaceRoot, context.target.project))
+        .then(() => {
+          subscriber.next({
+            success: true
+          });
+        })
+        .catch((err) => {
+          context.logger.error('Error during build & serve', err);
+        });
+    } else {
+      runGatsbyBuild(context.workspaceRoot, context.target.project)
+        .then(() => {
+          subscriber.next({
+            success: true
+          });
+        })
+        .catch((err) => {
+          context.logger.error('Error during runGatsbyDevelop', err);
+          subscriber.next({
+            success: false
+          });
+        });
+    }
+  });
+}
+
+function runGatsbyBuild(workspaceRoot, project) {
+  return new Promise((resolve, reject) => {
+    const cp = fork(join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'), ['build'], {
+      cwd: join(workspaceRoot, `apps/${project}`)
     });
 
     cp.on('error', (err) => {
-      console.log('ERROR: spawn failed! (' + err + ')');
+      reject(err);
     });
 
     cp.on('exit', (code) => {
       if (code === 0) {
-        const from = join(context.workspaceRoot, `apps/${context.target.project}/public`);
-        const to = join(context.workspaceRoot, `dist/apps/${context.target.project}`);
-
-        move(from, to, err => {
-          if (err) {
-            subscriber.next({
-              success: false
-            });
-          }
-
-          subscriber.next({
-            success: true
-          });
-        });
+        resolve();
       } else {
-        subscriber.next({
-          success: code === 0
-        });
+        reject(code);
+      }
+    });
+  });
+}
+
+function runGatsbyServe(workspaceRoot, project) {
+  return new Promise((resolve, reject) => {
+    const cwd = join(workspaceRoot, `apps/${project}`);
+
+    const cp = fork(join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
+      ['serve'],
+      { cwd }
+    );
+
+    cp.on('error', (err) => {
+      reject(err);
+    });
+
+    cp.on('exit', (code) => {
+      if (code === 0) {
+        resolve(code);
+      } else {
+        reject(code);
       }
     });
   });

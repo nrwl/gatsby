@@ -88,11 +88,6 @@ export default function(options: GatsbyPluginSchematicSchema): Rule {
       });
 
       project.targets.add({
-        name: 'serve',
-        builder: '@nrwl/gatsby:serve'
-      });
-
-      project.targets.add({
         name: 'develop',
         builder: '@nrwl/gatsby:develop'
       });

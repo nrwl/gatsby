@@ -42,6 +42,11 @@
                 "output": "./src"
               },
               {
+                "input": "./libs/gatsby-plugin/plugins",
+                "glob": "**/*.!(ts)",
+                "output": "./plugins"
+              },
+              {
                 "input": "./libs/gatsby-plugin",
                 "glob": "collection.json",
                 "output": "."

@@ -9,18 +9,38 @@ export function runBuilder(
   context: BuilderContext
 ): Observable<BuilderOutput> {
   return new Observable(subscriber => {
-    const cp = fork(join(context.workspaceRoot, './node_modules/gatsby-cli/lib/index.js'), ['develop'], {
-      cwd: join(context.workspaceRoot, `apps/${context.target.project}`)
-    });
+    runGatsbyDevelop(context.workspaceRoot, context.target.project)
+      .then(() => {
+        subscriber.next({
+          success: true
+        });
+      })
+      .catch((err) => {
+        context.logger.error('Error during runGatsbyDevelop', err);
+        subscriber.next({
+          success: false
+        });
+      });
+  });
+}
+
+function runGatsbyDevelop(workspaceRoot, project) {
+  return new Promise((resolve, reject) => {
+    const cp = fork(join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
+      ['develop'],
+      { cwd: join(workspaceRoot, `apps/${project}`) }
+    );
 
     cp.on('error', (err) => {
-      console.log('ERROR: spawn failed! (' + err + ')');
+      reject(err);
     });
 
     cp.on('exit', (code) => {
-      subscriber.next({
-        success: code === 0
-      });
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(code);
+      }
     });
   });
 }
