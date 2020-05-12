@@ -8,8 +8,9 @@ export function runBuilder(
   options: GatsbyPluginBuilderSchema,
   context: BuilderContext
 ): Observable<BuilderOutput> {
+  const gatsbyOptions = normalizeGatsbyOptions(options);
   return new Observable(subscriber => {
-    runGatsbyDevelop(context.workspaceRoot, context.target.project)
+    runGatsbyDevelop(context.workspaceRoot, context.target.project, gatsbyOptions)
       .then(() => {
         subscriber.next({
           success: true
@@ -24,10 +25,32 @@ export function runBuilder(
   });
 }
 
-function runGatsbyDevelop(workspaceRoot, project) {
+function normalizeGatsbyOptions(options) {
+  const gatsbyDevelopOptions = {
+    'host': '--host',
+    'port': '--port',
+    'open': '--open',
+    'https': '--https',
+    'H': '--host',
+    'p': '--port',
+    'o': '--open',
+    'S': '--https'
+  };
+  const gatsbyOptions = [];
+
+  Object.keys(options).forEach((key) => {
+    if (gatsbyDevelopOptions.hasOwnProperty(key)) {
+      gatsbyOptions.push(`${gatsbyDevelopOptions[key]}=${options[key]}`);
+    }
+  });
+
+  return gatsbyOptions;
+}
+
+function runGatsbyDevelop(workspaceRoot, project, options) {
   return new Promise((resolve, reject) => {
     const cp = fork(join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
-      ['develop'],
+      ['develop', ...options],
       { cwd: join(workspaceRoot, `apps/${project}`) }
     );
 
