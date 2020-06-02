@@ -1,4 +1,8 @@
-import { BuilderContext, BuilderOutput, createBuilder } from '@angular-devkit/architect';
+import {
+  BuilderContext,
+  BuilderOutput,
+  createBuilder
+} from '@angular-devkit/architect';
 import { fork } from 'child_process';
 import { join } from 'path';
 import { Observable } from 'rxjs';
@@ -11,13 +15,15 @@ export function runBuilder(
   return new Observable(subscriber => {
     if (options.serve) {
       runGatsbyBuild(context.workspaceRoot, context.target.project)
-        .then(() => runGatsbyServe(context.workspaceRoot, context.target.project))
+        .then(() =>
+          runGatsbyServe(context.workspaceRoot, context.target.project)
+        )
         .then(() => {
           subscriber.next({
             success: true
           });
         })
-        .catch((err) => {
+        .catch(err => {
           context.logger.error('Error during build & serve', err);
         });
     } else {
@@ -27,7 +33,7 @@ export function runBuilder(
             success: true
           });
         })
-        .catch((err) => {
+        .catch(err => {
           context.logger.error('Error during runGatsbyDevelop', err);
           subscriber.next({
             success: false
@@ -39,15 +45,19 @@ export function runBuilder(
 
 function runGatsbyBuild(workspaceRoot, project) {
   return new Promise((resolve, reject) => {
-    const cp = fork(join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'), ['build'], {
-      cwd: join(workspaceRoot, `apps/${project}`)
-    });
+    const cp = fork(
+      join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
+      ['build'],
+      {
+        cwd: join(workspaceRoot, `apps/${project}`)
+      }
+    );
 
-    cp.on('error', (err) => {
+    cp.on('error', err => {
       reject(err);
     });
 
-    cp.on('exit', (code) => {
+    cp.on('exit', code => {
       if (code === 0) {
         resolve();
       } else {
@@ -61,16 +71,17 @@ function runGatsbyServe(workspaceRoot, project) {
   return new Promise((resolve, reject) => {
     const cwd = join(workspaceRoot, `apps/${project}`);
 
-    const cp = fork(join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
+    const cp = fork(
+      join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
       ['serve'],
       { cwd }
     );
 
-    cp.on('error', (err) => {
+    cp.on('error', err => {
       reject(err);
     });
 
-    cp.on('exit', (code) => {
+    cp.on('exit', code => {
       if (code === 0) {
         resolve(code);
       } else {

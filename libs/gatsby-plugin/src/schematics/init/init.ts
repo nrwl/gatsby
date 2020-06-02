@@ -1,25 +1,27 @@
-import { chain, noop, Rule } from '@angular-devkit/schematics';
+import { JsonObject } from '@angular-devkit/core';
+import { chain, Rule } from '@angular-devkit/schematics';
+import { addDepsToPackageJson, updateWorkspace } from '@nrwl/workspace';
+import { setDefaultCollection } from '@nrwl/workspace/src/utils/rules/workspace';
 import {
-  addDepsToPackageJson,
-  addPackageWithInit,
-  updateJsonInTree,
-  updateWorkspace
-} from '@nrwl/workspace';
-import { Schema } from './schema';
-import {
+  angularDevkitSchematics,
+  babelPluginModuleResolver,
   gatsbyImageVersion,
   gatsbyPluginManifestVersion,
   gatsbyPluginOfflineVersion,
   gatsbyPluginReactHelmetVersion,
-  gatsbyPluginSharpVersion, gatsbyPluginTypescript, gatsbySourceFilesystemVersion, gatsbyTransformerSharpVersion,
+  gatsbyPluginSharpVersion,
+  gatsbyPluginTypescript,
+  gatsbySourceFilesystemVersion,
+  gatsbyTransformerSharpVersion,
   gatsbyVersion,
-  nxVersion, prettierVersion, propTypesVersion,
-  reactDomVersion, reactHelmetVersion,
+  nxVersion,
+  prettierVersion,
+  propTypesVersion,
+  reactDomVersion,
+  reactHelmetVersion,
   reactVersion
-
 } from '../../utils/versions';
-import { JsonObject } from '@angular-devkit/core';
-import { setDefaultCollection } from '@nrwl/workspace/src/utils/rules/workspace';
+import { Schema } from './schema';
 
 function jsonIdentity(x: any): JsonObject {
   return x as JsonObject;
@@ -65,11 +67,10 @@ export default function(schema: Schema) {
         'gatsby-plugin-typescript': gatsbyPluginTypescript
       },
       {
-        // '@nrwl/gatsby': nxVersion,
-        // react dep is not needed, remove
+        '@angular-devkit/schematics': angularDevkitSchematics,
         '@nrwl/react': nxVersion,
         'prettier': prettierVersion,
-        'babel-plugin-module-resolver': '4.0.0'
+        'babel-plugin-module-resolver': babelPluginModuleResolver
       }
     )
   ]);

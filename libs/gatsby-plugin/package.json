@@ -26,6 +26,6 @@
         "@nrwl/workspace": "*"
     },
     "dependencies": {
-        "fs-extra": "^9.0.0"
+        "@nrwl/react": "^9.3.0"
     }
 }

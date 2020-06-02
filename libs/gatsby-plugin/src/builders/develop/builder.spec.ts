@@ -6,6 +6,4 @@ import { GatsbyPluginBuilderSchema } from './schema';
 
 const options: GatsbyPluginBuilderSchema = {};
 
-describe('Command Runner Builder', () => {
-
-});
+describe('Command Runner Builder', () => {});

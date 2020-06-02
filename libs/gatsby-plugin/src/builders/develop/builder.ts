@@ -1,4 +1,8 @@
-import { BuilderContext, BuilderOutput, createBuilder } from '@angular-devkit/architect';
+import {
+  BuilderContext,
+  BuilderOutput,
+  createBuilder
+} from '@angular-devkit/architect';
 import { fork } from 'child_process';
 import { join } from 'path';
 import { Observable } from 'rxjs';
@@ -10,13 +14,17 @@ export function runBuilder(
 ): Observable<BuilderOutput> {
   const gatsbyOptions = normalizeGatsbyOptions(options);
   return new Observable(subscriber => {
-    runGatsbyDevelop(context.workspaceRoot, context.target.project, gatsbyOptions)
+    runGatsbyDevelop(
+      context.workspaceRoot,
+      context.target.project,
+      gatsbyOptions
+    )
       .then(() => {
         subscriber.next({
           success: true
         });
       })
-      .catch((err) => {
+      .catch(err => {
         context.logger.error('Error during runGatsbyDevelop', err);
         subscriber.next({
           success: false
@@ -27,18 +35,18 @@ export function runBuilder(
 
 function normalizeGatsbyOptions(options) {
   const gatsbyDevelopOptions = {
-    'host': '--host',
-    'port': '--port',
-    'open': '--open',
-    'https': '--https',
-    'H': '--host',
-    'p': '--port',
-    'o': '--open',
-    'S': '--https'
+    host: '--host',
+    port: '--port',
+    open: '--open',
+    https: '--https',
+    H: '--host',
+    p: '--port',
+    o: '--open',
+    S: '--https'
   };
   const gatsbyOptions = [];
 
-  Object.keys(options).forEach((key) => {
+  Object.keys(options).forEach(key => {
     if (gatsbyDevelopOptions.hasOwnProperty(key)) {
       gatsbyOptions.push(`${gatsbyDevelopOptions[key]}=${options[key]}`);
     }
@@ -49,16 +57,17 @@ function normalizeGatsbyOptions(options) {
 
 function runGatsbyDevelop(workspaceRoot, project, options) {
   return new Promise((resolve, reject) => {
-    const cp = fork(join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
+    const cp = fork(
+      join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
       ['develop', ...options],
       { cwd: join(workspaceRoot, `apps/${project}`) }
     );
 
-    cp.on('error', (err) => {
+    cp.on('error', err => {
       reject(err);
     });
 
-    cp.on('exit', (code) => {
+    cp.on('exit', code => {
       if (code === 0) {
         resolve();
       } else {

@@ -1,21 +1,20 @@
 {
-    "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
-    "name": "Nx Gatsby",
-    "version": "0.1",
-    "schematics": {
-        "init": {
-            "factory": "./src/schematics/init/init",
-            "schema": "./src/schematics/init/schema.json",
-            "description": "Initialize the @nrwl/gatsby plugin",
-            "hidden": true
-        },
-        "application": {
-            "factory": "./src/schematics/application/schematic",
-            "schema": "./src/schematics/application/schema.json",
-            "aliases": [
-                "app"
-            ],
-            "description": "Create an application"
-        }
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "name": "Nx Gatsby",
+  "version": "0.1",
+  "extends": ["@nrwl/react"],
+  "schematics": {
+    "init": {
+      "factory": "./src/schematics/init/init",
+      "schema": "./src/schematics/init/schema.json",
+      "description": "Initialize the @nrwl/gatsby plugin",
+      "hidden": true
+    },
+    "application": {
+      "factory": "./src/schematics/application/schematic",
+      "schema": "./src/schematics/application/schema.json",
+      "aliases": ["app"],
+      "description": "Create an application"
     }
+  }
 }
