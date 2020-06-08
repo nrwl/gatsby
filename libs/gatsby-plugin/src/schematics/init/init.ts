@@ -1,6 +1,6 @@
 import { JsonObject } from '@angular-devkit/core';
-import { chain, Rule } from '@angular-devkit/schematics';
-import { addDepsToPackageJson, updateWorkspace } from '@nrwl/workspace';
+import { chain, noop, Rule } from '@angular-devkit/schematics';
+import { addDepsToPackageJson, addPackageWithInit, updateWorkspace } from '@nrwl/workspace';
 import { setDefaultCollection } from '@nrwl/workspace/src/utils/rules/workspace';
 import {
   angularDevkitSchematics,
@@ -50,6 +50,12 @@ function setDefault(): Rule {
 export default function(schema: Schema) {
   return chain([
     setDefault(),
+    schema.unitTestRunner === 'jest'
+      ? addPackageWithInit('@nrwl/jest')
+      : noop(),
+    schema.e2eTestRunner === 'cypress'
+      ? addPackageWithInit('@nrwl/cypress')
+      : noop(),
     addDepsToPackageJson(
       {
         'gatsby': gatsbyVersion,

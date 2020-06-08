@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "NxReactNgInit",
-  "title": "Add Nx React Schematics",
+  "id": "NxGatsbyInit",
+  "title": "Add Nx Gatsby Schematics",
   "type": "object",
   "properties": {
     "unitTestRunner": {

@@ -1,9 +1,27 @@
 {
-  "$schema": "https://json-schema.org/draft-07/schema",
-  "$id": "https://json-schema.org/draft-07/schema",
-  "title": "GatsbyPlugin builder",
-  "description": "",
+  "title": "Gatsby development server",
+  "description": "Gatsby development server",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "port": {
+      "type": "number",
+      "description": "Port to listen on.",
+      "default": 4200
+    },
+    "host": {
+      "type": "string",
+      "description": "Host to listen on.",
+      "default": "localhost"
+    },
+    "https": {
+      "type": "boolean",
+      "description": "Serve using HTTPS.",
+      "default": false
+    },
+    "open": {
+      "type": "boolean",
+      "description": "Open the site in your (default) browser for you."
+    }
+  },
   "required": []
 }

@@ -5,15 +5,17 @@ import {
   mergeWith,
   move,
   Rule,
-  url,
   SchematicContext,
-  Tree
+  externalSchematic,
+  Tree,
+  noop,
+  url
 } from '@angular-devkit/schematics';
 
 import {
-  addProjectToNxJsonInTree, formatFiles,
+  addProjectToNxJsonInTree,
+  formatFiles,
   names,
-  offsetFromRoot,
   projectRootDir,
   ProjectType,
   toFileName,
@@ -78,6 +80,8 @@ export default function(options: GatsbyPluginSchematicSchema): Rule {
       tags: normalizedOptions.parsedTags
     }),
     createApplicationFiles(normalizedOptions),
+    addJest(normalizedOptions),
+    addCypress(normalizedOptions),
     addPrettierIgnoreEntry(normalizedOptions),
     addGitIgnoreEntry(normalizedOptions),
     formatFiles()
@@ -108,6 +112,29 @@ function addProject(options: NormalizedSchema): Rule {
 
     return json;
   });
+}
+
+function addCypress(options: NormalizedSchema): Rule {
+  return options.e2eTestRunner === 'cypress'
+    ? externalSchematic('@nrwl/cypress', 'cypress-project', {
+      ...options,
+      name: options.name + '-e2e',
+      directory: options.directory,
+      project: options.projectName
+    })
+    : noop();
+}
+
+function addJest(options: NormalizedSchema): Rule {
+  return options.unitTestRunner === 'jest'
+    ? externalSchematic('@nrwl/jest', 'jest-project', {
+      project: options.projectName,
+      supportTsx: true,
+      skipSerializers: true,
+      setupFile: 'none',
+      babelJest: false
+    })
+    : noop();
 }
 
 function addPrettierIgnoreEntry(options: NormalizedSchema) {

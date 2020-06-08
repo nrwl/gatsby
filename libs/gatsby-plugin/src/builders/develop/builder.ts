@@ -1,7 +1,7 @@
 import {
   BuilderContext,
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import { fork } from 'child_process';
 import { join } from 'path';
@@ -12,65 +12,73 @@ export function runBuilder(
   options: GatsbyPluginBuilderSchema,
   context: BuilderContext
 ): Observable<BuilderOutput> {
-  const gatsbyOptions = normalizeGatsbyOptions(options);
-  return new Observable(subscriber => {
+  const baseUrl = `${options.https ? 'https' : 'http'}://${options.host}:${
+    options.port
+  }`;
+  return new Observable((subscriber) => {
     runGatsbyDevelop(
       context.workspaceRoot,
       context.target.project,
-      gatsbyOptions
+      createGatsbyOptions(options)
     )
-      .then(() => {
+      .then((success) => {
         subscriber.next({
-          success: true
+          baseUrl,
+          success,
         });
       })
-      .catch(err => {
-        context.logger.error('Error during runGatsbyDevelop', err);
+      .catch((err) => {
+        context.logger.error('Error during develop', err?.message);
+        console.log(err);
         subscriber.next({
-          success: false
+          success: false,
         });
+        subscriber.complete();
       });
   });
 }
 
-function normalizeGatsbyOptions(options) {
-  const gatsbyDevelopOptions = {
-    host: '--host',
-    port: '--port',
-    open: '--open',
-    https: '--https',
-    H: '--host',
-    p: '--port',
-    o: '--open',
-    S: '--https'
-  };
-  const gatsbyOptions = [];
-
-  Object.keys(options).forEach(key => {
-    if (gatsbyDevelopOptions.hasOwnProperty(key)) {
-      gatsbyOptions.push(`${gatsbyDevelopOptions[key]}=${options[key]}`);
-    }
-  });
-
-  return gatsbyOptions;
+function createGatsbyOptions(options) {
+  return Object.keys(options).reduce((acc, k) => {
+    if (k === 'port' || k === 'host' || k === 'https' || k === 'open')
+      acc.push(`--${k}=${options[k]}`);
+    return acc;
+  }, []);
 }
 
-function runGatsbyDevelop(workspaceRoot, project, options) {
-  return new Promise((resolve, reject) => {
+async function runGatsbyDevelop(workspaceRoot, project, options) {
+  return new Promise<boolean>((resolve, reject) => {
     const cp = fork(
       join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
       ['develop', ...options],
-      { cwd: join(workspaceRoot, `apps/${project}`) }
+      {
+        cwd: join(workspaceRoot, `apps/${project}`),
+        env: {
+          ...process.env,
+        },
+        stdio: ['inherit', 'inherit', 'inherit', 'ipc'],
+      }
     );
 
-    cp.on('error', err => {
+    // Ensure the child process is killed when the parent exits
+    process.on('exit', () => cp.kill());
+
+    cp.on('message', ({ action }) => {
+      if (
+        action?.type === 'ACTIVITY_END' &&
+        action?.payload?.status === 'SUCCESS' &&
+        action?.payload?.id === 'webpack-develop'
+      ) {
+        resolve(true);
+      }
+    });
+
+    cp.on('error', (err) => {
       reject(err);
     });
 
-    cp.on('exit', code => {
-      if (code === 0) {
-        resolve();
-      } else {
+    cp.on('exit', (code) => {
+      if (code !== 0) {
         reject(code);
       }
     });
