@@ -1,6 +1,10 @@
 import { JsonObject } from '@angular-devkit/core';
 import { chain, noop, Rule } from '@angular-devkit/schematics';
-import { addDepsToPackageJson, addPackageWithInit, updateWorkspace } from '@nrwl/workspace';
+import {
+  addDepsToPackageJson,
+  addPackageWithInit,
+  updateWorkspace,
+} from '@nrwl/workspace';
 import { setDefaultCollection } from '@nrwl/workspace/src/utils/rules/workspace';
 import {
   angularDevkitSchematics,
@@ -19,7 +23,8 @@ import {
   propTypesVersion,
   reactDomVersion,
   reactHelmetVersion,
-  reactVersion
+  reactVersion,
+  testingLibraryReactVersion,
 } from '../../utils/versions';
 import { Schema } from './schema';
 
@@ -28,7 +33,7 @@ function jsonIdentity(x: any): JsonObject {
 }
 
 function setDefault(): Rule {
-  const updateProjectWorkspace = updateWorkspace(workspace => {
+  const updateProjectWorkspace = updateWorkspace((workspace) => {
     workspace.extensions.schematics =
       jsonIdentity(workspace.extensions.schematics) || {};
 
@@ -39,15 +44,15 @@ function setDefault(): Rule {
       ...workspace.extensions.schematics,
       '@nrwl/gatsby': {
         application: {
-          ...jsonIdentity(gatsbySchematics.application)
-        }
-      }
+          ...jsonIdentity(gatsbySchematics.application),
+        },
+      },
     };
   });
   return chain([setDefaultCollection('@nrwl/gatsby'), updateProjectWorkspace]);
 }
 
-export default function(schema: Schema) {
+export default function (schema: Schema) {
   return chain([
     setDefault(),
     schema.unitTestRunner === 'jest'
@@ -58,7 +63,7 @@ export default function(schema: Schema) {
       : noop(),
     addDepsToPackageJson(
       {
-        'gatsby': gatsbyVersion,
+        gatsby: gatsbyVersion,
         'gatsby-image': gatsbyImageVersion,
         'gatsby-plugin-manifest': gatsbyPluginManifestVersion,
         'gatsby-plugin-offline': gatsbyPluginOfflineVersion,
@@ -67,17 +72,18 @@ export default function(schema: Schema) {
         'gatsby-source-filesystem': gatsbySourceFilesystemVersion,
         'gatsby-transformer-sharp': gatsbyTransformerSharpVersion,
         'prop-types': propTypesVersion,
-        'react': reactVersion,
+        react: reactVersion,
         'react-dom': reactDomVersion,
         'react-helmet': reactHelmetVersion,
-        'gatsby-plugin-typescript': gatsbyPluginTypescript
+        'gatsby-plugin-typescript': gatsbyPluginTypescript,
       },
       {
         '@angular-devkit/schematics': angularDevkitSchematics,
         '@nrwl/react': nxVersion,
-        'prettier': prettierVersion,
-        'babel-plugin-module-resolver': babelPluginModuleResolver
+        '@testing-library/react': testingLibraryReactVersion,
+        prettier: prettierVersion,
+        'babel-plugin-module-resolver': babelPluginModuleResolver,
       }
-    )
+    ),
   ]);
 }

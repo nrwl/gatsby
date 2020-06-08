@@ -16,3 +16,4 @@ export const reactHelmetVersion = '5.2.1';
 export const prettierVersion = '1.19.1';
 export const gatsbyPluginTypescript = '2.4.0';
 export const babelPluginModuleResolver = '4.0.0';
+export const testingLibraryReactVersion = '10.2.1';
