@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { PageProps } from 'gatsby';
 import './app.css';
 
 import NxLogo from './logo.svg';
@@ -98,7 +98,7 @@ nx affected:e2e
 `;
 %>
 
-const IndexPage = () => {
+const IndexPage = (props: PageProps) => {
   return (
     <<%= wrapper %> className="app">
         <%= innerJsx %>
