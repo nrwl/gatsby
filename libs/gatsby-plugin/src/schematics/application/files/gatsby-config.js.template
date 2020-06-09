@@ -4,6 +4,18 @@ module.exports = {
     description: `This is a gatsby application created by Nx.`
   },
   plugins: [
+    <% if (style === 'less') { %>'gatsby-plugin-less',<% } %>
+    <% if (style === 'scss') { %>'gatsby-plugin-sass',<% } %>
+    <% if (style === 'styl') { %>'gatsby-plugin-stylus',<% } %>
+    <% if (style === 'styled-components') { %>'gatsby-plugin-styled-components',<% } %>
+    <% if (style === '@emotion/styled') { %>'gatsby-plugin-emotion',<% } %>
+    {
+      resolve: 'gatsby-plugin-svgr',
+      options: {
+        svgo: false,
+        ref: true
+      }
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,

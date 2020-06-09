@@ -11,10 +11,15 @@
       "hidden": true
     },
     "application": {
-      "factory": "./src/schematics/application/schematic",
+      "factory": "./src/schematics/application/application",
       "schema": "./src/schematics/application/schema.json",
       "aliases": ["app"],
       "description": "Create an application"
+    },
+    "component": {
+      "factory": "./src/schematics/component/component",
+      "schema": "./src/schematics/component/schema.json",
+      "description": "Create a component"
     }
   }
 }

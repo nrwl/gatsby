@@ -1,4 +1,4 @@
-export const nxVersion = '9.2.3';
+export const nxVersion = '9.4.0-beta.5';
 export const angularDevkitSchematics = '9.1.7';
 
 export const gatsbyVersion = '2.20.24';
@@ -14,6 +14,13 @@ export const reactVersion = '16.12.0';
 export const reactDomVersion = '16.12.0';
 export const reactHelmetVersion = '5.2.1';
 export const prettierVersion = '1.19.1';
-export const gatsbyPluginTypescript = '2.4.0';
-export const babelPluginModuleResolver = '4.0.0';
+export const gatsbyPluginTypescriptVersion = '2.4.0';
+export const babelPluginModuleResolverVersion = '4.0.0';
 export const testingLibraryReactVersion = '10.2.1';
+export const gatsbyPluginEmotionVersion = '4.3.3';
+export const gatsbyPluginStyledComponentsVersion = '3.3.3';
+export const gatsbyPluginSassVersion = '2.3.3';
+export const gatsbyPluginLessVersion = '3.2.3';
+export const gatsbyPluginStylusVersion = '2.3.3';
+export const nodeSassVersion = '4.14.1';
+export const gatsbyPluginSvgrVersion = '2.0.2';

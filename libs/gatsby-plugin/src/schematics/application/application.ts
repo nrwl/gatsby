@@ -3,6 +3,7 @@ import {
   applyTemplates,
   chain,
   externalSchematic,
+  filter,
   mergeWith,
   move,
   noop,
@@ -27,6 +28,8 @@ import { GatsbyPluginSchematicSchema } from './schema';
 import { appsDir } from '@nrwl/workspace/src/utils/ast-utils';
 import { updateJestConfigContent } from '@nrwl/react/src/utils/jest-utils';
 import { toJS } from '@nrwl/workspace/src/utils/rules/to-js';
+import { assertValidStyle } from '@nrwl/react';
+import { addStyleDependencies } from '../../utils/styles';
 
 const projectType = ProjectType.Application;
 
@@ -35,6 +38,29 @@ interface NormalizedSchema extends GatsbyPluginSchematicSchema {
   projectRoot: string;
   projectDirectory: string;
   parsedTags: string[];
+  styledModule: null | string;
+}
+
+export default function (options: GatsbyPluginSchematicSchema): Rule {
+  const normalizedOptions = normalizeOptions(options);
+  return chain([
+    init({
+      ...options,
+      skipFormat: true,
+    }),
+    addProject(normalizedOptions),
+    addProjectToNxJsonInTree(normalizedOptions.projectName, {
+      tags: normalizedOptions.parsedTags,
+    }),
+    createApplicationFiles(normalizedOptions),
+    addStyleDependencies(options.style),
+    addJest(normalizedOptions),
+    updateJestConfig(normalizedOptions),
+    addCypress(normalizedOptions),
+    addPrettierIgnoreEntry(normalizedOptions),
+    addGitIgnoreEntry(normalizedOptions),
+    formatFiles(),
+  ]);
 }
 
 function normalizeOptions(
@@ -50,8 +76,15 @@ function normalizeOptions(
     ? options.tags.split(',').map((s) => s.trim())
     : [];
 
+  const styledModule = /^(css|scss|less|styl)$/.test(options.style)
+    ? null
+    : options.style;
+
+  assertValidStyle(options.style);
+
   return {
     ...options,
+    styledModule,
     projectName,
     projectRoot,
     projectDirectory,
@@ -66,31 +99,13 @@ function createApplicationFiles(options: NormalizedSchema): Rule {
         ...options,
         ...names(options.name),
       }),
+      options.styledModule
+        ? filter((file) => !file.endsWith(`.${options.style}`))
+        : noop(),
       move(options.projectRoot),
       options.js ? toJS() : noop(),
     ])
   );
-}
-
-export default function (options: GatsbyPluginSchematicSchema): Rule {
-  const normalizedOptions = normalizeOptions(options);
-  return chain([
-    init({
-      ...options,
-      skipFormat: true,
-    }),
-    addProject(normalizedOptions),
-    addProjectToNxJsonInTree(normalizedOptions.projectName, {
-      tags: normalizedOptions.parsedTags,
-    }),
-    createApplicationFiles(normalizedOptions),
-    addJest(normalizedOptions),
-    updateJestConfig(normalizedOptions),
-    addCypress(normalizedOptions),
-    addPrettierIgnoreEntry(normalizedOptions),
-    addGitIgnoreEntry(normalizedOptions),
-    formatFiles(),
-  ]);
 }
 
 function addProject(options: NormalizedSchema): Rule {

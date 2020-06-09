@@ -8,13 +8,14 @@ import {
 import { setDefaultCollection } from '@nrwl/workspace/src/utils/rules/workspace';
 import {
   angularDevkitSchematics,
-  babelPluginModuleResolver,
+  babelPluginModuleResolverVersion,
   gatsbyImageVersion,
   gatsbyPluginManifestVersion,
   gatsbyPluginOfflineVersion,
   gatsbyPluginReactHelmetVersion,
   gatsbyPluginSharpVersion,
-  gatsbyPluginTypescript,
+  gatsbyPluginSvgrVersion,
+  gatsbyPluginTypescriptVersion,
   gatsbySourceFilesystemVersion,
   gatsbyTransformerSharpVersion,
   gatsbyVersion,
@@ -65,6 +66,7 @@ export default function (schema: Schema) {
       {
         gatsby: gatsbyVersion,
         'gatsby-image': gatsbyImageVersion,
+        'gatsby-plugin-svgr': gatsbyPluginSvgrVersion,
         'gatsby-plugin-manifest': gatsbyPluginManifestVersion,
         'gatsby-plugin-offline': gatsbyPluginOfflineVersion,
         'gatsby-plugin-react-helmet': gatsbyPluginReactHelmetVersion,
@@ -75,14 +77,14 @@ export default function (schema: Schema) {
         react: reactVersion,
         'react-dom': reactDomVersion,
         'react-helmet': reactHelmetVersion,
-        'gatsby-plugin-typescript': gatsbyPluginTypescript,
+        'gatsby-plugin-typescript': gatsbyPluginTypescriptVersion,
       },
       {
         '@angular-devkit/schematics': angularDevkitSchematics,
         '@nrwl/react': nxVersion,
         '@testing-library/react': testingLibraryReactVersion,
         prettier: prettierVersion,
-        'babel-plugin-module-resolver': babelPluginModuleResolver,
+        'babel-plugin-module-resolver': babelPluginModuleResolverVersion,
       }
     ),
   ]);
