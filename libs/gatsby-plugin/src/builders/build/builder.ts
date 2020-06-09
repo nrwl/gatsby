@@ -1,7 +1,7 @@
 import {
   BuilderContext,
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import { fork } from 'child_process';
 import { join } from 'path';
@@ -12,7 +12,7 @@ export function runBuilder(
   options: GatsbyPluginBuilderSchema,
   context: BuilderContext
 ): Observable<BuilderOutput> {
-  return new Observable(subscriber => {
+  return new Observable((subscriber) => {
     if (options.serve) {
       runGatsbyBuild(context.workspaceRoot, context.target.project)
         .then(() =>
@@ -20,23 +20,23 @@ export function runBuilder(
         )
         .then(() => {
           subscriber.next({
-            success: true
+            success: true,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           context.logger.error('Error during build & serve', err);
         });
     } else {
       runGatsbyBuild(context.workspaceRoot, context.target.project)
         .then(() => {
           subscriber.next({
-            success: true
+            success: true,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           context.logger.error('Error during runGatsbyDevelop', err);
           subscriber.next({
-            success: false
+            success: false,
           });
         });
     }
@@ -49,15 +49,15 @@ function runGatsbyBuild(workspaceRoot, project) {
       join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
       ['build'],
       {
-        cwd: join(workspaceRoot, `apps/${project}`)
+        cwd: join(workspaceRoot, `apps/${project}`),
       }
     );
 
-    cp.on('error', err => {
+    cp.on('error', (err) => {
       reject(err);
     });
 
-    cp.on('exit', code => {
+    cp.on('exit', (code) => {
       if (code === 0) {
         resolve();
       } else {
@@ -77,11 +77,11 @@ function runGatsbyServe(workspaceRoot, project) {
       { cwd }
     );
 
-    cp.on('error', err => {
+    cp.on('error', (err) => {
       reject(err);
     });
 
-    cp.on('exit', code => {
+    cp.on('exit', (code) => {
       if (code === 0) {
         resolve(code);
       } else {

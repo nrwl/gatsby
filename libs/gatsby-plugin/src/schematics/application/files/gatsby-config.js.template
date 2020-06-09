@@ -14,7 +14,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     {
-      resolve: require.resolve(`@nrwl/gatsby/plugins/nx-gatsby-ext-plugin`),
+      resolve: require.resolve(`@nrwl/gatsby/plugin-nx`),
       options: {
         path: __dirname
       }

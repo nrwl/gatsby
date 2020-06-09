@@ -26,6 +26,7 @@ import init from '../init/init';
 import { GatsbyPluginSchematicSchema } from './schema';
 import { appsDir } from '@nrwl/workspace/src/utils/ast-utils';
 import { updateJestConfigContent } from '@nrwl/react/src/utils/jest-utils';
+import { toJS } from '@nrwl/workspace/src/utils/rules/to-js';
 
 const projectType = ProjectType.Application;
 
@@ -66,6 +67,7 @@ function createApplicationFiles(options: NormalizedSchema): Rule {
         ...names(options.name),
       }),
       move(options.projectRoot),
+      options.js ? toJS() : noop(),
     ])
   );
 }

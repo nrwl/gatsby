@@ -4,4 +4,5 @@ export interface GatsbyPluginSchematicSchema {
   directory?: string;
   unitTestRunner: 'jest' | 'none';
   e2eTestRunner: 'cypress' | 'none';
+  js: boolean;
 }

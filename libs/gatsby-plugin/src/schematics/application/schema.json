@@ -34,6 +34,11 @@
       "type": "string",
       "enum": ["cypress", "none"],
       "default": "cypress"
+    },
+    "js": {
+      "type": "boolean",
+      "description": "Generate JavaScript files rather than TypeScript files",
+      "default": false
     }
   },
   "required": ["name"]

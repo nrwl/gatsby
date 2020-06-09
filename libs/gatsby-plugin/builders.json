@@ -1,15 +1,15 @@
 {
-    "$schema": "../../node_modules/@angular-devkit/architect/src/builders-schema.json",
-    "builders": {
-        "build": {
-            "implementation": "./src/builders/build/builder",
-            "schema": "./src/builders/build/schema.json",
-            "description": "Build a Gatsby app"
-        },
-        "develop": {
-            "implementation": "./src/builders/develop/builder",
-            "schema": "./src/builders/develop/schema.json",
-            "description": "Develop an app"
-        }
+  "$schema": "../../node_modules/@angular-devkit/architect/src/builders-schema.json",
+  "builders": {
+    "build": {
+      "implementation": "./src/builders/build/builder",
+      "schema": "./src/builders/build/schema.json",
+      "description": "Build a Gatsby app"
+    },
+    "develop": {
+      "implementation": "./src/builders/develop/builder",
+      "schema": "./src/builders/develop/schema.json",
+      "description": "Develop an app"
     }
+  }
 }

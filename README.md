@@ -2,10 +2,10 @@
 
 Gatsby CLI supports the following commands for development:
 
-* new
-* develop
-* build
-* serve
+- new
+- develop
+- build
+- serve
 
 See more [in the documentation](https://www.gatsbyjs.org/docs/gatsby-cli/). Here's how they are mapped to Nx commands.
 
@@ -68,13 +68,14 @@ gatsby build <app-name> --serve
 ```
 
 ## Using components from React library
+
 You can use a component from React library generated using Nx package for React. Once you run:
 
 ```
 nx g @nrwl/react:lib ui
 ```
 
-the `libs/ui` directory with sample `Ui` component is added to the workspace. 
+the `libs/ui` directory with sample `Ui` component is added to the workspace.
 You can import it like this in your Gatsby files:
 
 ```jsx
