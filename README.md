@@ -1,3 +1,7 @@
+[![CircleCI](https://circleci.com/gh/nrwl/gatsby.svg?style=svg)](https://circleci.com/gh/nrwl/gatsby)
+
+<hr>
+
 # Nx Gatsby Plugin
 
 Gatsby CLI supports the following commands for development:

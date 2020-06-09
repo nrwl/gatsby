@@ -63,8 +63,8 @@
     },
     "gatsby-plugin-e2e": {
       "projectType": "application",
-      "root": "apps\\gatsby-plugin-e2e",
-      "sourceRoot": "apps\\gatsby-plugin-e2e/src",
+      "root": "apps/gatsby-plugin-e2e",
+      "sourceRoot": "apps/gatsby-plugin-e2e/src",
       "architect": {
         "e2e": {
           "builder": "@nrwl/nx-plugin:e2e",
