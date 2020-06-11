@@ -32,6 +32,9 @@ describe('gatsby-plugin e2e', () => {
     let result = await runNxCommandAsync(`build ${app}`);
     expect(result.stdout).toContain('Done building in');
 
+    result = await runNxCommandAsync(`lint ${app}`);
+    expect(result.stdout).not.toMatch('Lint errors found in the listed files');
+
     result = await runNxCommandAsync(`test ${app}`);
     expect(result.stderr).toContain('Test Suites: 2 passed, 2 total');
 

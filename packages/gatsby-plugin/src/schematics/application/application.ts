@@ -1,3 +1,4 @@
+import { join, normalize } from '@angular-devkit/core';
 import {
   apply,
   applyTemplates,
@@ -12,10 +13,12 @@ import {
   Tree,
   url,
 } from '@angular-devkit/schematics';
-
 import {
+  addLintFiles,
   addProjectToNxJsonInTree,
   formatFiles,
+  generateProjectLint,
+  Linter,
   names,
   projectRootDir,
   ProjectType,
@@ -28,7 +31,11 @@ import { GatsbyPluginSchematicSchema } from './schema';
 import { appsDir } from '@nrwl/workspace/src/utils/ast-utils';
 import { updateJestConfigContent } from '@nrwl/react/src/utils/jest-utils';
 import { toJS } from '@nrwl/workspace/src/utils/rules/to-js';
-import { assertValidStyle } from '@nrwl/react';
+import {
+  assertValidStyle,
+  extraEslintDependencies,
+  reactEslintJson,
+} from '@nrwl/react';
 import { addStyleDependencies } from '../../utils/styles';
 
 const projectType = ProjectType.Application;
@@ -47,6 +54,17 @@ export default function (options: GatsbyPluginSchematicSchema): Rule {
     init({
       ...options,
       skipFormat: true,
+    }),
+    addLintFiles(normalizedOptions.projectRoot, Linter.EsLint, {
+      localConfig: {
+        ...reactEslintJson,
+        rules: {
+          ...reactEslintJson.rules,
+          '@typescript-eslint/camelcase': 'off',
+        },
+        ignorePatterns: ['!**/*', 'public'],
+      },
+      extraPackageDeps: extraEslintDependencies,
     }),
     addProject(normalizedOptions),
     addProjectToNxJsonInTree(normalizedOptions.projectName, {
@@ -135,6 +153,12 @@ function addProject(options: NormalizedSchema): Rule {
         },
       },
     };
+
+    architect.lint = generateProjectLint(
+      normalize(options.projectRoot),
+      join(normalize(options.projectRoot), 'tsconfig.json'),
+      Linter.EsLint
+    );
 
     json.projects[options.projectName] = {
       root: options.projectRoot,
