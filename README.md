@@ -13,13 +13,23 @@ Gatsby CLI supports the following commands for development:
 
 See more [in the documentation](https://www.gatsbyjs.org/docs/gatsby-cli/). Here's how they are mapped to Nx commands.
 
-## Generate an application
+## Getting started
 
-**Gatsby**
+First, create a new Nx workspace:
 
 ```
-gatsby new [<app-name> [<starter-url>]]
+npx create-nx-workspace@latest myorg --preset=empty
 ```
+
+**Note:** `myorg` is the scope of your workspace, which is used like npm scope for workspace projects. You can change it to something else.
+
+Lastly, add the Nx CLI (so you can run `nx` command):
+
+```
+npm install -g @nrwl/cli 
+```
+
+### Generate an application
 
 **Nx**
 
@@ -31,31 +41,26 @@ When using Nx, you can create multiple applications and themes in the same works
 
 Command parameters aren't yet supported by the plugin.
 
-## Development server
-
-**Gatsby**
-
-```
-gatsby develop [--host [--port [--open [--https ]]]]
-```
+### Development server
 
 **Nx**
 
 ```
-nx develop <app-name>
+nx serve <app-name> --open
 ```
 
-Navigate to `http://localhost:8000/`. The app will automatically reload if you change any of the source files.
+### Production server
 
-Command parameters aren't yet supported by the plugin.
-
-## Build
-
-**Gatsby**
+**Nx**
 
 ```
-gatsby build [--prefix-paths [--no-uglify [--profile [--open-tracing-config-file [--no-colors ]]]]]
+nx serve <app-name> --prod --open
 ```
+
+**Note:** This command will build the production app before serving.
+
+
+### Build
 
 **Nx**
 
@@ -63,27 +68,18 @@ gatsby build [--prefix-paths [--no-uglify [--profile [--open-tracing-config-file
 nx build <app-name>
 ```
 
-Command parameters aren't yet supported by the plugin.
-
-To build the application and serve it, run:
-
-```
-gatsby build <app-name> --serve
-```
-
 ## Using components from React library
 
 You can use a component from React library generated using Nx package for React. Once you run:
 
 ```
-nx g @nrwl/react:lib ui
+nx g @nrwl/react:lib ui-button --style=css
 ```
 
-the `libs/ui` directory with sample `Ui` component is added to the workspace.
-You can import it like this in your Gatsby files:
+This will generate the `UiButton` component, which you can use in your app.
 
 ```jsx
-import { Ui } from 'libs/ui/src';
+import { UiButton } from '@myorg/ui-button';
 ```
 
 ## Further help
