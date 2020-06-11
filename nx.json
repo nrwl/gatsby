@@ -20,14 +20,24 @@
     },
     "gatsby-plugin-e2e": {
       "tags": [],
-      "implicitDependencies": ["gatsby-plugin"]
+      "implicitDependencies": [
+        "gatsby-plugin"
+      ]
     }
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test"]
+        "accessToken": "MDYzNzNlYjUtZDQzOS00NzNiLWI2MmItNDU0NDQxMmZmODMyfHJlYWQ=",
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e"
+        ],
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
       }
     }
   }
