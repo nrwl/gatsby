@@ -23,6 +23,7 @@ import {
   projectRootDir,
   ProjectType,
   toFileName,
+  updateJsonInTree,
   updateWorkspaceInTree,
 } from '@nrwl/workspace';
 
@@ -62,7 +63,6 @@ export default function (options: GatsbyPluginSchematicSchema): Rule {
           ...reactEslintJson.rules,
           '@typescript-eslint/camelcase': 'off',
         },
-        ignorePatterns: ['!**/*', 'public'],
       },
       extraPackageDeps: extraEslintDependencies,
     }),
@@ -74,6 +74,7 @@ export default function (options: GatsbyPluginSchematicSchema): Rule {
     addStyleDependencies(options.style),
     addJest(normalizedOptions),
     updateJestConfig(normalizedOptions),
+    updateEslintConfig(normalizedOptions),
     addCypress(normalizedOptions),
     addPrettierIgnoreEntry(normalizedOptions),
     addGitIgnoreEntry(normalizedOptions),
@@ -238,4 +239,17 @@ function updateJestConfig(options: NormalizedSchema) {
         const content = updateJestConfigContent(originalContent);
         host.overwrite(configPath, content);
       };
+}
+function updateEslintConfig(options: NormalizedSchema) {
+  const appDirectory = options.directory
+    ? `${toFileName(options.directory)}/${toFileName(options.name)}`
+    : toFileName(options.name);
+  return (host) => {
+    const appProjectRoot = `${appsDir(host)}/${appDirectory}`;
+    const configPath = `${appProjectRoot}/.eslintrc`;
+    return updateJsonInTree(configPath, (json) => {
+      json.ignorePatterns = ['!**/*', 'public'];
+      return json;
+    });
+  };
 }
