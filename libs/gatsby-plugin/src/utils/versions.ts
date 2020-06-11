@@ -1,4 +1,4 @@
-export const nxVersion = '9.4.0-beta.5';
+export const nxVersion = '9.4.0-rc.6';
 export const angularDevkitSchematics = '9.1.7';
 
 export const gatsbyVersion = '2.20.24';

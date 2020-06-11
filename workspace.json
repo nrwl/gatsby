@@ -42,9 +42,9 @@
                 "output": "./src"
               },
               {
-                "input": "./libs/gatsby-plugin/plugin-nx",
+                "input": "./libs/gatsby-plugin/plugins",
                 "glob": "**/*.!(ts)",
-                "output": "./plugin-nx"
+                "output": "./plugins"
               },
               {
                 "input": "./libs/gatsby-plugin",
