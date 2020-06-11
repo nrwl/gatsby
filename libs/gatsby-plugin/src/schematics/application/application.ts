@@ -115,12 +115,12 @@ function addProject(options: NormalizedSchema): Rule {
     architect.build = {
       builder: '@nrwl/gatsby:build',
       options: {
-        uglify: false,
+        uglify: true,
+        color: true,
+        profile: false,
       },
       configurations: {
-        production: {
-          uglify: true,
-        },
+        production: {},
       },
     };
 
