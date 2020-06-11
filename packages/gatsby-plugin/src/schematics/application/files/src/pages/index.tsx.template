@@ -10,7 +10,6 @@ import './index.<%= style %>';
 <% }
 %>
 
-import Image from "../components/image"
 import { ReactComponent as Logo } from './logo.svg';
 import star from './star.svg';
 
@@ -237,7 +236,6 @@ nx affected:test
 nx affected:e2e
 \`}</pre>
     </details>
-    <Image />
   </main>
 `;
 %>
