@@ -1,6 +1,6 @@
 # Gatsby Plugin for Nx
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/nrwl/gatsby/master/logo.png" width="450"></p>
 
 <div align="center">
 
