@@ -5,9 +5,9 @@ nx build gatsby-plugin
 cd dist/projects/gatsby-plugin
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    sed -i "" "s|REPLACE|$1|g" package.json
+    sed -i "" "s|0.0.1|$1|g" package.json
 else
-    sed -i "s|REPLACE|$1|g" package.json
+    sed -i "s|0.0.1|$1|g" package.json
 fi
 
 npm adduser
