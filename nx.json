@@ -1,5 +1,5 @@
 {
-  "npmScope": "nx-gatsby-plugin",
+  "npmScope": "nrwl",
   "implicitDependencies": {
     "workspace.json": "*",
     "package.json": {
@@ -9,6 +9,10 @@
     "tsconfig.json": "*",
     "tslint.json": "*",
     "nx.json": "*"
+  },
+  "workspaceLayout": {
+    "appsDir": "packages",
+    "lisDir": "packages"
   },
   "projects": {
     "gatsby-plugin": {

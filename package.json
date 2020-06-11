@@ -1,5 +1,5 @@
 {
-  "name": "nx-gatsby-plugin",
+  "name": "nrwl",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -9,13 +9,6 @@
     "test": "nx run-many --target=test --all --parallel",
     "lint": "nx workspace-lint && nx run-many --target=lint --all --parallel",
     "e2e": "nx e2e gatsby-plugin-e2e",
-    "affected:apps": "nx affected:apps",
-    "affected:libs": "nx affected:libs",
-    "affected:build": "nx affected:build",
-    "affected:e2e": "nx affected:e2e",
-    "affected:test": "nx affected:test",
-    "affected:lint": "nx affected:lint",
-    "affected:dep-graph": "nx affected:dep-graph",
     "affected": "nx affected",
     "format": "nx format:write",
     "format:write": "nx format:write",

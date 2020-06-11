@@ -2,8 +2,8 @@
   "version": 1,
   "projects": {
     "gatsby-plugin": {
-      "root": "libs/gatsby-plugin",
-      "sourceRoot": "libs/gatsby-plugin/src",
+      "root": "packages/gatsby-plugin",
+      "sourceRoot": "packages/gatsby-plugin/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -11,48 +11,49 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "config": "libs/gatsby-plugin/.eslintrc",
+            "config": "packages/gatsby-plugin/.eslintrc",
             "tsConfig": [
-              "libs/gatsby-plugin/tsconfig.lib.json",
-              "libs/gatsby-plugin/tsconfig.spec.json"
+              "packages/gatsby-plugin/tsconfig.lib.json",
+              "packages/gatsby-plugin/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/gatsby-plugin/**"]
+            "exclude": ["**/node_modules/**", "!packages/gatsby-plugin/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/gatsby-plugin/jest.config.js",
-            "tsConfig": "libs/gatsby-plugin/tsconfig.spec.json",
+            "jestConfig": "packages/gatsby-plugin/jest.config.js",
+            "tsConfig": "packages/gatsby-plugin/tsconfig.spec.json",
             "passWithNoTests": true
           }
         },
         "build": {
           "builder": "@nrwl/node:package",
           "options": {
-            "outputPath": "dist/libs/gatsby-plugin",
-            "tsConfig": "libs/gatsby-plugin/tsconfig.lib.json",
-            "packageJson": "libs/gatsby-plugin/package.json",
-            "main": "libs/gatsby-plugin/src/index.ts",
+            "outputPath": "dist/packages/gatsby-plugin",
+            "tsConfig": "packages/gatsby-plugin/tsconfig.lib.json",
+            "packageJson": "packages/gatsby-plugin/package.json",
+            "main": "packages/gatsby-plugin/src/index.ts",
             "assets": [
-              "libs/gatsby-plugin/*.md",
+              "packages/gatsby-plugin/README.md",
+              "packages/gatsby-plugin/LICENSE",
               {
-                "input": "./libs/gatsby-plugin/src",
+                "input": "./packages/gatsby-plugin/src",
                 "glob": "**/*.!(ts)",
                 "output": "./src"
               },
               {
-                "input": "./libs/gatsby-plugin/plugins",
+                "input": "./packages/gatsby-plugin/plugins",
                 "glob": "**/*.!(ts)",
                 "output": "./plugins"
               },
               {
-                "input": "./libs/gatsby-plugin",
+                "input": "./packages/gatsby-plugin",
                 "glob": "collection.json",
                 "output": "."
               },
               {
-                "input": "./libs/gatsby-plugin",
+                "input": "./packages/gatsby-plugin",
                 "glob": "builders.json",
                 "output": "."
               }
@@ -63,17 +64,17 @@
     },
     "gatsby-plugin-e2e": {
       "projectType": "application",
-      "root": "apps/gatsby-plugin-e2e",
-      "sourceRoot": "apps/gatsby-plugin-e2e/src",
+      "root": "packages/gatsby-plugin-e2e",
+      "sourceRoot": "packages/gatsby-plugin-e2e/src",
       "architect": {
         "e2e": {
           "builder": "@nrwl/nx-plugin:e2e",
           "options": {
             "target": "gatsby-plugin:build",
-            "npmPackageName": "@nx-gatsby-plugin/gatsby-plugin",
-            "pluginOutputPath": "dist/libs/gatsby-plugin",
-            "jestConfig": "apps/gatsby-plugin-e2e/jest.config.js",
-            "tsSpecConfig": "apps/gatsby-plugin-e2e/tsconfig.spec.json"
+            "npmPackageName": "@nrwl/gatsby-plugin",
+            "pluginOutputPath": "dist/packages/gatsby-plugin",
+            "jestConfig": "packages/gatsby-plugin-e2e/jest.config.js",
+            "tsSpecConfig": "packages/gatsby-plugin-e2e/tsconfig.spec.json"
           }
         }
       }

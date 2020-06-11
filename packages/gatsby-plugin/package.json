@@ -1,6 +1,6 @@
 {
   "name": "@nrwl/gatsby",
-  "version": "0.940.0",
+  "version": "REPLACE",
   "description": "Gatsby Plugin for Nx",
   "repository": {
     "type": "git",
@@ -26,8 +26,8 @@
     "@nrwl/workspace": "*"
   },
   "dependencies": {
-    "@nrwl/react": "9.4.0-rc.6",
-    "@nrwl/cypress": "9.4.0-rc.6",
-    "@nrwl/jest": "9.4.0-rc.6"
+    "@nrwl/react": "^9.4.0-rc.6",
+    "@nrwl/cypress": "^9.4.0-rc.6",
+    "@nrwl/jest": "^9.4.0-rc.6"
   }
 }

@@ -16,7 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nx-gatsby-plugin/gatsby-plugin": ["libs/gatsby-plugin/src/index.ts"]
+      "@nrwl/gatsby-plugin": ["packages/gatsby-plugin/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

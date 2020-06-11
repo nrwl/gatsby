@@ -17,14 +17,14 @@
 ### Create a new Nx workspace:
 
 ```
-npx create-nx-workspace --cli=nx --preset=empty
+> npx create-nx-workspace --cli=nx --preset=empty
 ```
 
 ### Create an app
 
 
 ```
-npx nx g @nrwl/gatsby:app <app-name>
+> npx nx g @nrwl/gatsby:app <app-name>
 ```
 
 When using Nx, you can create multiple applications and themes in the same workspace. If you don't want to prefix your commands with npx, install `@nrwl/cli` globally.
@@ -33,22 +33,22 @@ When using Nx, you can create multiple applications and themes in the same works
 ### Serve the app
 
 ```
-npx nx serve <app-name> --open
+> npx nx serve <app-name> --open
 ```
 
 In prod mode: 
 
 ```
-npx nx serve <app-name> --prod --open
+> npx nx serve <app-name> --prod --open
 ```
 
 
 ### Build/test/lint the app
 
 ```
-npx nx build <app-name>
-npx nx test <app-name>
-npx nx lint <app-name>
+> npx nx build <app-name>
+> npx nx test <app-name>
+> npx nx lint <app-name>
 ```
 
 ## Using components from React library
@@ -56,7 +56,7 @@ npx nx lint <app-name>
 You can use a component from React library generated using Nx package for React. Once you run:
 
 ```
-npx nx g @nrwl/react:lib ui-button --style=css
+> npx nx g @nrwl/react:lib ui-button --style=css
 ```
 
 This will generate the `UiButton` component, which you can use in your app.

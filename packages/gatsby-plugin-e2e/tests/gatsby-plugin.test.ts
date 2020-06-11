@@ -9,7 +9,7 @@ import {
 describe('gatsby-plugin e2e', () => {
   test('generates a valid gatsby application', async () => {
     const app = uniq('app');
-    ensureNxProject('@nrwl/gatsby', 'dist/libs/gatsby-plugin');
+    ensureNxProject('@nrwl/gatsby', 'dist/packages/gatsby-plugin');
     await runNxCommandAsync(`generate @nrwl/gatsby:app ${app}`);
     await runNxCommandAsync(
       `generate @nrwl/gatsby:component header --project ${app}`
@@ -41,7 +41,7 @@ describe('gatsby-plugin e2e', () => {
 
   test('supports --js option', async () => {
     const app = uniq('app');
-    ensureNxProject('@nrwl/gatsby', 'dist/libs/gatsby-plugin');
+    ensureNxProject('@nrwl/gatsby', 'dist/packages/gatsby-plugin');
     await runNxCommandAsync(`generate @nrwl/gatsby:app ${app} --js`);
 
     checkFilesExist(
