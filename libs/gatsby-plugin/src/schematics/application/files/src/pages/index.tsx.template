@@ -160,9 +160,6 @@ var innerJsx = `
     <p>
       Thank you for using and showing some ♥ for Nx.
     </p>
-    <p>
-      <Image />
-    </p>
     <div className="flex github-star-container">
       <a href="https://github.com/nrwl/nx" target="_blank" rel="noopener noreferrer"> If you like Nx, please give it a star:
         <div className="github-star-badge">
@@ -240,6 +237,7 @@ nx affected:test
 nx affected:e2e
 \`}</pre>
     </details>
+    <Image />
   </main>
 `;
 %>
