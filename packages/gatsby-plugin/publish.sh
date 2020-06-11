@@ -2,7 +2,7 @@
 echo "Publishing gatsby-plugin@$1"
 
 nx build gatsby-plugin
-cd dist/projects/gatsby-plugin
+cd dist/packages/gatsby-plugin
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     sed -i "" "s|0.0.1|$1|g" package.json
