@@ -114,10 +114,26 @@ function addProject(options: NormalizedSchema): Rule {
 
     architect.build = {
       builder: '@nrwl/gatsby:build',
+      options: {
+        uglify: false,
+      },
+      configurations: {
+        production: {
+          uglify: true,
+        },
+      },
     };
 
     architect.serve = {
-      builder: '@nrwl/gatsby:develop',
+      builder: '@nrwl/gatsby:server',
+      options: {
+        buildTarget: `${options.projectName}:build`,
+      },
+      configurations: {
+        production: {
+          buildTarget: `${options.projectName}:build:production`,
+        },
+      },
     };
 
     json.projects[options.projectName] = {

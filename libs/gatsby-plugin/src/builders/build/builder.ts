@@ -12,42 +12,33 @@ export function runBuilder(
   options: GatsbyPluginBuilderSchema,
   context: BuilderContext
 ): Observable<BuilderOutput> {
-  return new Observable((subscriber) => {
-    if (options.serve) {
-      runGatsbyBuild(context.workspaceRoot, context.target.project)
-        .then(() =>
-          runGatsbyServe(context.workspaceRoot, context.target.project)
-        )
-        .then(() => {
-          subscriber.next({
-            success: true,
-          });
-        })
-        .catch((err) => {
-          context.logger.error('Error during build & serve', err);
+  return new Observable<BuilderOutput>((subscriber) => {
+    runGatsbyBuild(context.workspaceRoot, context.target.project, options)
+      .then(() => {
+        subscriber.next({
+          success: true,
         });
-    } else {
-      runGatsbyBuild(context.workspaceRoot, context.target.project)
-        .then(() => {
-          subscriber.next({
-            success: true,
-          });
-        })
-        .catch((err) => {
-          context.logger.error('Error during runGatsbyDevelop', err);
-          subscriber.next({
-            success: false,
-          });
+        subscriber.complete();
+      })
+      .catch((err) => {
+        context.logger.error('Error during build', err);
+        subscriber.next({
+          success: false,
         });
-    }
+        subscriber.complete();
+      });
   });
 }
 
-function runGatsbyBuild(workspaceRoot, project) {
+export function runGatsbyBuild(
+  workspaceRoot: string,
+  project: string,
+  options: GatsbyPluginBuilderSchema
+) {
   return new Promise((resolve, reject) => {
     const cp = fork(
       join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
-      ['build'],
+      ['build', ...createGatsbyBuildOptions(options)],
       {
         cwd: join(workspaceRoot, `apps/${project}`),
       }
@@ -67,28 +58,30 @@ function runGatsbyBuild(workspaceRoot, project) {
   });
 }
 
-function runGatsbyServe(workspaceRoot, project) {
-  return new Promise((resolve, reject) => {
-    const cwd = join(workspaceRoot, `apps/${project}`);
-
-    const cp = fork(
-      join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
-      ['serve'],
-      { cwd }
-    );
-
-    cp.on('error', (err) => {
-      reject(err);
-    });
-
-    cp.on('exit', (code) => {
-      if (code === 0) {
-        resolve(code);
-      } else {
-        reject(code);
-      }
-    });
-  });
+function createGatsbyBuildOptions(options: GatsbyPluginBuilderSchema) {
+  return Object.keys(options).reduce((acc, k) => {
+    const val = options[k];
+    if (typeof val === 'undefined') return acc;
+    switch (k) {
+      case 'prefixPaths':
+        return val ? acc.concat(`--prefix-paths`) : acc;
+      case 'uglify':
+        return val ? acc : acc.concat('--no-uglify');
+      case 'color':
+        return val ? acc : acc.concat('--no-color');
+      case 'profile':
+        return val ? acc.concat('--profile') : acc;
+      case 'openTracingConfigFile':
+        return val ? acc.concat([`--open-tracing-config-file`, val]) : acc;
+      case 'graphqlTracing':
+        return val ? acc.concat('--graphql-tracing') : acc;
+      case 'serve':
+      case 'host':
+      case 'port':
+      default:
+        return acc;
+    }
+  }, []);
 }
 
 export default createBuilder(runBuilder);

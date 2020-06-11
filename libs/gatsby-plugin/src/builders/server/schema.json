@@ -3,6 +3,10 @@
   "description": "Gatsby development server",
   "type": "object",
   "properties": {
+    "buildTarget": {
+      "type": "string",
+      "description": "Target which builds the application"
+    },
     "port": {
       "type": "number",
       "description": "Port to listen on.",

@@ -6,10 +6,10 @@
       "schema": "./src/builders/build/schema.json",
       "description": "Build a Gatsby app"
     },
-    "develop": {
-      "implementation": "./src/builders/develop/builder",
-      "schema": "./src/builders/develop/schema.json",
-      "description": "Develop an app"
+    "server": {
+      "implementation": "./src/builders/server/builder",
+      "schema": "./src/builders/server/schema.json",
+      "description": "Starts server for app"
     }
   }
 }
