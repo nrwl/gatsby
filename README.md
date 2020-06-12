@@ -11,7 +11,6 @@
 
 </div>
 
-
 ## Getting started
 
 ### Create a new Nx workspace:
@@ -27,11 +26,10 @@ npx create-nx-workspace --cli=nx --preset=empty
 npm install --save-dev @nrwl/gatsby
 
 # Using yarn
-yarn -D @nrwl/gatsby
+yarn add -D @nrwl/gatsby
 ```
 
 ### Create an app
-
 
 ```
 npx nx g @nrwl/gatsby:app <app-name>
@@ -39,19 +37,17 @@ npx nx g @nrwl/gatsby:app <app-name>
 
 When using Nx, you can create multiple applications and themes in the same workspace. If you don't want to prefix your commands with npx, install `@nrwl/cli` globally.
 
-
 ### Serve the app
 
 ```
 npx nx serve <app-name> --open
 ```
 
-In prod mode: 
+In prod mode:
 
 ```
 npx nx serve <app-name> --prod --open
 ```
-
 
 ### Build/test/lint the app
 
