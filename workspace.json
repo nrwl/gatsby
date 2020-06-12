@@ -59,6 +59,12 @@
               }
             ]
           }
+        },
+        "publish": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "node tools/scripts/publish.js gatsby-plugin {args.version}"
+          }
         }
       }
     },

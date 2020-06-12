@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
+    "release": "./tools/scripts/publish.sh",
     "start": "nx serve",
     "build": "nx build gatsby-plugin",
     "test": "nx run-many --target=test --all --parallel",
