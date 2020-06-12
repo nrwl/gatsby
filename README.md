@@ -20,6 +20,16 @@
 npx create-nx-workspace --cli=nx --preset=empty
 ```
 
+### Install Gatsby plugin
+
+```
+# Using npm
+npm install --save-dev @nrwl/gatsby
+
+# Using yarn
+yarn -D @nrwl/gatsby
+```
+
 ### Create an app
 
 
