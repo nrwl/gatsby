@@ -9,6 +9,7 @@ import { setDefaultCollection } from '@nrwl/workspace/src/utils/rules/workspace'
 import {
   angularDevkitSchematics,
   babelPluginModuleResolverVersion,
+  gatsbyBabelPresetVersion,
   gatsbyImageVersion,
   gatsbyPluginManifestVersion,
   gatsbyPluginOfflineVersion,
@@ -25,7 +26,7 @@ import {
   reactDomVersion,
   reactHelmetVersion,
   reactVersion,
-  testingLibraryReactVersion,
+  testingLibraryReactVersion
 } from '../../utils/versions';
 import { Schema } from './schema';
 
@@ -77,7 +78,7 @@ export default function (schema: Schema) {
         react: reactVersion,
         'react-dom': reactDomVersion,
         'react-helmet': reactHelmetVersion,
-        'gatsby-plugin-typescript': gatsbyPluginTypescriptVersion,
+        'gatsby-plugin-typescript': gatsbyPluginTypescriptVersion
       },
       {
         '@angular-devkit/schematics': angularDevkitSchematics,
@@ -85,6 +86,7 @@ export default function (schema: Schema) {
         '@testing-library/react': testingLibraryReactVersion,
         prettier: prettierVersion,
         'babel-plugin-module-resolver': babelPluginModuleResolverVersion,
+        'babel-preset-gatsby': gatsbyBabelPresetVersion
       }
     ),
   ]);
