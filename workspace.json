@@ -39,6 +39,11 @@
               "packages/gatsby-plugin/LICENSE",
               {
                 "input": "./packages/gatsby-plugin/src",
+                "glob": "**/.babelrc*",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/gatsby-plugin/src",
                 "glob": "**/*.!(ts)",
                 "output": "./src"
               },
