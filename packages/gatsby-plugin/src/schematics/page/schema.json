@@ -1,15 +1,15 @@
 {
   "$schema": "http://json-schema.org/schema",
   "id": "NxReactApp",
-  "title": "Create a React Component for Gatsby",
+  "title": "Create a React Page for Gatsby",
   "type": "object",
   "examples": [
     {
-      "command": "g component my-component --project=mylib",
-      "description": "Generate a component in the mylib library"
+      "command": "g page my-page --project=mylib",
+      "description": "Generate a page in the mylib library"
     },
     {
-      "command": "g component my-component --project=mylib --classComponent",
+      "command": "g page my-page --project=mylib --classComponent",
       "description": "Generate a class component in the mylib library"
     }
   ],

@@ -20,6 +20,11 @@
       "factory": "./src/schematics/component/component",
       "schema": "./src/schematics/component/schema.json",
       "description": "Create a component"
+    },
+    "page": {
+      "factory": "./src/schematics/page/page",
+      "schema": "./src/schematics/page/schema.json",
+      "description": "Create a page"
     }
   }
 }
