@@ -134,6 +134,7 @@ function addProject(options: NormalizedSchema): Rule {
     architect.build = {
       builder: '@nrwl/gatsby:build',
       options: {
+        outputPath: `${options.projectRoot}/public`,
         uglify: true,
         color: true,
         profile: false,
