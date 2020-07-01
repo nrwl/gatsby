@@ -7,6 +7,8 @@ import { fork } from 'child_process';
 import { join } from 'path';
 import { Observable } from 'rxjs';
 import { GatsbyPluginBuilderSchema } from './schema';
+import * as fs from 'fs';
+import * as rimraf from 'rimraf';
 
 export function runBuilder(
   options: GatsbyPluginBuilderSchema,
@@ -50,6 +52,20 @@ export function runGatsbyBuild(
 
     cp.on('exit', (code) => {
       if (code === 0) {
+        if (options.buildInDist) {
+          const distProjectDir = join(workspaceRoot, `dist/${project}`);
+          const distProjectPublicDir = join(distProjectDir, 'public');
+
+          if (!fs.existsSync(distProjectDir)) {
+            fs.mkdirSync(distProjectDir);
+          } else {
+            rimraf.sync(distProjectPublicDir);
+          }
+          fs.renameSync(
+            join(workspaceRoot, `apps/${project}/public`),
+            distProjectPublicDir
+          );
+        }
         resolve();
       } else {
         reject(code);

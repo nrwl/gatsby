@@ -7,4 +7,5 @@ export interface GatsbyPluginBuilderSchema extends JsonObject {
   openTracingConfigFile?: string;
   graphqlTracing?: boolean;
   color: boolean;
+  buildInDist?: boolean;
 }

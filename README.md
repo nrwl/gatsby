@@ -57,6 +57,23 @@ npx nx test <app-name>
 npx nx lint <app-name>
 ```
 
+To build the Gatsby `public` folder inside the `dist` folder edit the `workspace.json` and add `"buildInDist": true`. E.g.:
+
+```
+"build": {
+    "builder": "@nrwl/gatsby:build",
+    "options": {
+        "uglify": true,
+        "color": true,
+        "profile": false,
+        "buildInDist": true
+    },
+    "configurations": {
+        "production": {}
+    }
+},
+```
+
 ## Using components from React library
 
 You can use a component from React library generated using Nx package for React. Once you run:
