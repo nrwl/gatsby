@@ -1,7 +1,7 @@
-export const nxVersion = '9.4.5';
+export const nxVersion = '9.5.1';
 export const angularDevkitSchematics = '9.1.7';
 
-export const gatsbyVersion = '2.20.24';
+export const gatsbyVersion = '2.23.18';
 export const gatsbyImageVersion = '2.2.39';
 export const gatsbyPluginManifestVersion = '2.2.39';
 export const gatsbyPluginOfflineVersion = '3.0.32';
