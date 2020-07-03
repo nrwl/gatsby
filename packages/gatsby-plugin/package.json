@@ -1,6 +1,6 @@
 {
   "name": "@nrwl/gatsby",
-  "version": "1000.0.0",
+  "version": "0.951.0",
   "description": "Gatsby Plugin for Nx",
   "repository": {
     "type": "git",
