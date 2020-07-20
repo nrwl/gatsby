@@ -23,7 +23,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "packages/gatsby-plugin/jest.config.js",
-            "tsConfig": "packages/gatsby-plugin/tsconfig.spec.json",
             "passWithNoTests": true
           }
         },

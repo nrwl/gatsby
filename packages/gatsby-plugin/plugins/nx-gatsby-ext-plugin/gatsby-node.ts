@@ -3,7 +3,7 @@ import { appRootPath as workspaceRoot } from '@nrwl/workspace/src/utils/app-root
 import { readJsonFile } from '@nrwl/workspace';
 
 function onCreateBabelConfig({ actions }, options) {
-  const tsConfig = readJsonFile(path.join(workspaceRoot, 'tsconfig.json'));
+  const tsConfig = readJsonFile(path.join(workspaceRoot, 'tsconfig.base.json'));
   const tsConfigPaths: { [key: string]: Array<string> } = tsConfig.compilerOptions.paths;
 
   const paths = Object.entries(tsConfigPaths)

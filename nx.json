@@ -6,9 +6,9 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    "tsconfig.json": "*",
     "tslint.json": "*",
-    "nx.json": "*"
+    "nx.json": "*",
+    "tsconfig.base.json": "*"
   },
   "workspaceLayout": {
     "appsDir": "packages",
@@ -20,9 +20,7 @@
     },
     "gatsby-plugin-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "gatsby-plugin"
-      ]
+      "implicitDependencies": ["gatsby-plugin"]
     }
   },
   "tasksRunnerOptions": {
@@ -30,15 +28,13 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "MDYzNzNlYjUtZDQzOS00NzNiLWI2MmItNDU0NDQxMmZmODMyfHJlYWQ=",
-        "cacheableOperations": [
-          "build",
-          "test",
-          "lint",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
     }
+  },
+  "affected": {
+    "defaultBase": "master"
   }
 }
