@@ -1,6 +1,11 @@
 {
   "$schema": "../../node_modules/@angular-devkit/architect/src/builders-schema.json",
   "builders": {
+    "develop": {
+      "implementation": "./src/builders/develop/builder",
+      "schema": "./src/builders/develop/schema.json",
+      "description": "Develop a Gatsby app"
+    },
     "build": {
       "implementation": "./src/builders/build/builder",
       "schema": "./src/builders/build/schema.json",

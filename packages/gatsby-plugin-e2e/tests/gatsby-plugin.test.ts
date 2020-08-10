@@ -29,7 +29,10 @@ describe('gatsby-plugin e2e', () => {
       return updated;
     });
 
-    let result = await runNxCommandAsync(`build ${app}`);
+    let result = await runNxCommandAsync(`develop ${app}`);
+    expect(result.stdout).toContain('Done building in');
+
+    result = await runNxCommandAsync(`build ${app}`);
     expect(result.stdout).toContain('Done building in');
 
     result = await runNxCommandAsync(`lint ${app}`);

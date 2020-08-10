@@ -131,6 +131,16 @@ function addProject(options: NormalizedSchema): Rule {
   return updateWorkspaceInTree((json) => {
     const architect: { [key: string]: any } = {};
 
+    architect.develop = {
+      builder: '@nrwl/gatsby:develop',
+      options: {
+        outputPath: `${options.projectRoot}/public`,
+      },
+      configurations: {
+        production: {},
+      },
+    };
+
     architect.build = {
       builder: '@nrwl/gatsby:build',
       options: {

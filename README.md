@@ -49,9 +49,10 @@ In prod mode:
 npx nx serve <app-name> --prod --open
 ```
 
-### Build/test/lint the app
+### Develop/build/test/lint the app
 
 ```
+npx nx develop <app-name>
 npx nx build <app-name>
 npx nx test <app-name>
 npx nx lint <app-name>

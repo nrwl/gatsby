@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://json-schema.org/draft-07/schema",
+  "title": "GatsbyPlugin builder",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "host": {
+      "type": "string",
+      "description": "Set host. Defaults to localhost."
+    },
+    "port": {
+      "type": "string",
+      "description": "Set port. Defaults to 8000"
+    },
+    "open": {
+      "type": "boolean",
+      "description": "Open the site in your (default) browser for you."
+    },
+    "https": {
+      "type": "boolean",
+      "description": "Custom HTTPS cert file (also required: --https, --key-file). See https://www.gatsbyjs.org/docs/local-https/."
+    },
+    "keyFile": {
+      "type": "string",
+      "description": "Custom HTTPS key file (also required: --https, --cert-file). See https://www.gatsbyjs.org/docs/local-https/."
+    },
+    "caFile": {
+      "type": "string",
+      "description": "Custom HTTPS CA certificate file (also required: --https, --cert-file, --key-file). See https://www.gatsbyjs.org/docs/local-https/."
+    },
+    "graphqlTracing": {
+      "type": "boolean",
+      "description": "Trace every graphql resolver, may have performance implications."
+    },
+    "openTracingConfigFile": {
+      "type": "string",
+      "description": "Tracer configuration file (OpenTracing compatible). See https://gatsby.dev/tracing."
+    },
+    "json": {
+      "type": "boolean",
+      "description": "Turn on the JSON logger."
+    },
+    "noColor": {
+      "type": "boolean",
+      "description": "Turn off the color in output."
+    }
+  },
+  "required": []
+}
