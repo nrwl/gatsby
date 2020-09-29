@@ -23,11 +23,11 @@
   "schematics": "./collection.json",
   "builders": "./builders.json",
   "peerDependencies": {
-    "@nrwl/workspace": "^9.4.0-rc.6"
+    "@nrwl/workspace": "^10.2.1"
   },
   "dependencies": {
-    "@nrwl/react": "^9.4.5",
-    "@nrwl/cypress": "^9.4.5",
-    "@nrwl/jest": "^9.4.5"
+    "@nrwl/react": "^10.2.1",
+    "@nrwl/cypress": "^10.2.1",
+    "@nrwl/jest": "^10.2.1"
   }
 }
