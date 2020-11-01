@@ -160,7 +160,7 @@ function addProject(options: NormalizedSchema): Rule {
       normalize(options.projectRoot),
       join(normalize(options.projectRoot), 'tsconfig.json'),
       Linter.EsLint,
-      []
+      [`${options.projectRoot}/**/*.{js,jsx,ts,tsx}`]
     );
 
     json.projects[options.projectName] = {
