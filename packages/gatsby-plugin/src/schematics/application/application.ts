@@ -159,7 +159,8 @@ function addProject(options: NormalizedSchema): Rule {
     architect.lint = generateProjectLint(
       normalize(options.projectRoot),
       join(normalize(options.projectRoot), 'tsconfig.json'),
-      Linter.EsLint
+      Linter.EsLint,
+      []
     );
 
     json.projects[options.projectName] = {
