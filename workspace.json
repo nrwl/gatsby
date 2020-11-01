@@ -8,15 +8,16 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "config": "packages/gatsby-plugin/.eslintrc",
-            "tsConfig": [
-              "packages/gatsby-plugin/tsconfig.lib.json",
-              "packages/gatsby-plugin/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!packages/gatsby-plugin/**"]
+            "lintFilePatterns": [
+              "packages/gatsby-plugin/**/*.ts",
+              "packages/gatsby-plugin/**/*.spec.ts",
+              "packages/gatsby-plugin/**/*.spec.tsx",
+              "packages/gatsby-plugin/**/*.spec.js",
+              "packages/gatsby-plugin/**/*.spec.jsx",
+              "packages/gatsby-plugin/**/*.d.ts"
+            ]
           }
         },
         "test": {
@@ -61,7 +62,8 @@
                 "glob": "builders.json",
                 "output": "."
               }
-            ]
+            ],
+            "srcRootForCompilationRoot": "packages/gatsby-plugin"
           }
         },
         "publish": {
@@ -83,8 +85,7 @@
             "target": "gatsby-plugin:build",
             "npmPackageName": "@nrwl/gatsby-plugin",
             "pluginOutputPath": "dist/packages/gatsby-plugin",
-            "jestConfig": "packages/gatsby-plugin-e2e/jest.config.js",
-            "tsSpecConfig": "packages/gatsby-plugin-e2e/tsconfig.spec.json"
+            "jestConfig": "packages/gatsby-plugin-e2e/jest.config.js"
           }
         }
       }

@@ -22,26 +22,27 @@
   "private": true,
   "dependencies": {
     "@nrwl/nx-cloud": "^9.3.5",
-    "@nrwl/nx-plugin": "10.0.0",
-    "@nrwl/react": "10.0.0"
+    "@nrwl/nx-plugin": "10.3.1",
+    "@nrwl/react": "10.3.1"
   },
   "devDependencies": {
-    "@nrwl/eslint-plugin-nx": "10.0.0",
-    "@nrwl/jest": "10.0.0",
-    "@nrwl/workspace": "10.0.0",
-    "@types/jest": "25.1.4",
+    "@nrwl/cli": "10.3.1",
+    "@nrwl/eslint-plugin-nx": "10.3.1",
+    "@nrwl/jest": "10.3.1",
+    "@nrwl/workspace": "10.3.1",
+    "@types/jest": "26.0.8",
     "@types/node": "~8.9.4",
-    "@typescript-eslint/eslint-plugin": "2.19.2",
-    "@typescript-eslint/parser": "2.19.2",
+    "@typescript-eslint/eslint-plugin": "4.3.0",
+    "@typescript-eslint/parser": "4.3.0",
     "dotenv": "6.2.0",
-    "eslint": "6.1.0",
+    "eslint": "7.10.0",
     "eslint-config-prettier": "6.0.0",
-    "gatsby": "2.23.1",
-    "jest": "25.2.3",
+    "gatsby": "2.24.91",
+    "jest": "26.2.2",
     "prettier": "2.0.4",
-    "ts-jest": "25.2.1",
+    "ts-jest": "26.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "3.9.7"
+    "typescript": "4.0.5"
   }
 }
