@@ -10,6 +10,11 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
+            "tsConfig": [
+              "packages/gatsby-plugin/tsconfig.json",
+              "packages/gatsby-plugin/tsconfig.lib.json",
+              "packages/gatsby-plugin/tsconfig.spec.json"
+            ],
             "lintFilePatterns": [
               "packages/gatsby-plugin/**/*.ts",
               "packages/gatsby-plugin/**/*.spec.ts",
