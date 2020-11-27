@@ -37,7 +37,7 @@ export function runGatsbyBuild(
 ) {
   return new Promise((resolve, reject) => {
     const cp = fork(
-      join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
+      require.resolve('gatsby-cli'),
       ['build', ...createGatsbyBuildOptions(options)],
       {
         cwd: join(workspaceRoot, `apps/${project}`),
