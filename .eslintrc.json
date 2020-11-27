@@ -4,8 +4,9 @@
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.*?.json"
   },
+  "ignorePatterns": ["**/*"],
   "plugins": ["@typescript-eslint", "@nrwl/nx"],
   "extends": [
     "eslint:recommended",
@@ -15,10 +16,10 @@
     "prettier/@typescript-eslint"
   ],
   "rules": {
-    "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/explicit-member-accessibility": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-parameter-properties": "off",
+    "@typescript-eslint/no-use-before-define": "off",
     "@nrwl/nx/enforce-module-boundaries": [
       "error",
       {

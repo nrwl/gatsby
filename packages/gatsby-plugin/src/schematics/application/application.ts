@@ -59,10 +59,14 @@ export default function (options: GatsbyPluginSchematicSchema): Rule {
     addLintFiles(normalizedOptions.projectRoot, Linter.EsLint, {
       localConfig: {
         ...reactEslintJson,
-        rules: {
-          ...reactEslintJson.rules,
-          '@typescript-eslint/camelcase': 'off',
-        },
+        overrides: [
+          {
+            files: ['*.tsx', '*.ts'],
+            rules: {
+              '@typescript-eslint/camelcase': 'off',
+            },
+          },
+        ],
       },
       extraPackageDeps: extraEslintDependencies,
     }),
@@ -159,7 +163,8 @@ function addProject(options: NormalizedSchema): Rule {
     architect.lint = generateProjectLint(
       normalize(options.projectRoot),
       join(normalize(options.projectRoot), 'tsconfig.json'),
-      Linter.EsLint
+      Linter.EsLint,
+      [`${options.projectRoot}/**/*.{ts,tsx,js,jsx}`]
     );
 
     json.projects[options.projectName] = {
@@ -247,9 +252,9 @@ function updateEslintConfig(options: NormalizedSchema) {
     : toFileName(options.name);
   return (host) => {
     const appProjectRoot = `${appsDir(host)}/${appDirectory}`;
-    const configPath = `${appProjectRoot}/.eslintrc`;
+    const configPath = `${appProjectRoot}/.eslintrc.json`;
     return updateJsonInTree(configPath, (json) => {
-      json.ignorePatterns = ['!**/*', 'public'];
+      json.ignorePatterns = ['!**/*', 'public', '.cache'];
       return json;
     });
   };
