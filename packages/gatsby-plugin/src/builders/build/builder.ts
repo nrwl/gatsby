@@ -5,42 +5,48 @@ import {
 } from '@angular-devkit/architect';
 import { fork } from 'child_process';
 import { join } from 'path';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 import { GatsbyPluginBuilderSchema } from './schema';
+import { getProjectRoot } from '../../utils/get-project-root';
 
 export function runBuilder(
   options: GatsbyPluginBuilderSchema,
   context: BuilderContext
 ): Observable<BuilderOutput> {
-  return new Observable<BuilderOutput>((subscriber) => {
-    runGatsbyBuild(context.workspaceRoot, context.target.project, options)
-      .then(() => {
-        subscriber.next({
-          success: true,
-        });
-        subscriber.complete();
-      })
-      .catch((err) => {
-        context.logger.error('Error during build', err);
-        subscriber.next({
-          success: false,
-        });
-        subscriber.complete();
+  return from(getProjectRoot(context)).pipe(
+    concatMap((projectRoot) => {
+      return new Observable<BuilderOutput>((subscriber) => {
+        runGatsbyBuild(context.workspaceRoot, projectRoot, options)
+          .then(() => {
+            subscriber.next({
+              success: true,
+            });
+            subscriber.complete();
+          })
+          .catch((err) => {
+            context.logger.error('Error during build', err);
+            subscriber.next({
+              success: false,
+            });
+            subscriber.complete();
+          });
       });
-  });
+    })
+  );
 }
 
 export function runGatsbyBuild(
   workspaceRoot: string,
-  project: string,
+  projectRoot: string,
   options: GatsbyPluginBuilderSchema
 ) {
   return new Promise((resolve, reject) => {
     const cp = fork(
-      require.resolve('gatsby-cli'),
+      join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
       ['build', ...createGatsbyBuildOptions(options)],
       {
-        cwd: join(workspaceRoot, `apps/${project}`),
+        cwd: join(workspaceRoot, projectRoot),
       }
     );
 
