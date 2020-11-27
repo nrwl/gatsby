@@ -79,17 +79,13 @@ function createGatsbyOptions(options) {
 
 async function runGatsbyDevelop(workspaceRoot, project, options) {
   return new Promise<boolean>((resolve, reject) => {
-    const cp = fork(
-      join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
-      ['develop', ...options],
-      {
-        cwd: join(workspaceRoot, `apps/${project}`),
-        env: {
-          ...process.env,
-        },
-        stdio: ['inherit', 'inherit', 'inherit', 'ipc'],
-      }
-    );
+    const cp = fork(require.resolve('gatsby-cli'), ['develop', ...options], {
+      cwd: join(workspaceRoot, `apps/${project}`),
+      env: {
+        ...process.env,
+      },
+      stdio: ['inherit', 'inherit', 'inherit', 'ipc'],
+    });
 
     // Ensure the child process is killed when the parent exits
     process.on('exit', () => cp.kill());
@@ -125,7 +121,7 @@ function runGatsbyServe(
     const cwd = join(workspaceRoot, `apps/${project}`);
 
     const cp = fork(
-      join(workspaceRoot, './node_modules/gatsby-cli/lib/index.js'),
+      require.resolve('gatsby-cli'),
       ['serve', ...createGatsbyServeOptions(options)],
       { cwd }
     );
