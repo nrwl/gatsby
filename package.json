@@ -22,15 +22,15 @@
   "private": true,
   "dependencies": {
     "@nrwl/nx-cloud": "10.1.10",
-    "@nrwl/nx-plugin": "11.0.16",
-    "@nrwl/react": "11.0.16"
+    "@nrwl/nx-plugin": "11.0.18",
+    "@nrwl/react": "11.0.18"
   },
   "devDependencies": {
-    "@nrwl/cli": "11.0.16",
-    "@nrwl/eslint-plugin-nx": "11.0.16",
-    "@nrwl/jest": "11.0.16",
-    "@nrwl/tao": "11.0.16",
-    "@nrwl/workspace": "11.0.16",
+    "@nrwl/cli": "11.0.18",
+    "@nrwl/eslint-plugin-nx": "11.0.18",
+    "@nrwl/jest": "11.0.18",
+    "@nrwl/tao": "11.0.18",
+    "@nrwl/workspace": "11.0.18",
     "@types/jest": "26.0.19",
     "@types/node": "12.12.38",
     "@typescript-eslint/eslint-plugin": "4.11.0",
