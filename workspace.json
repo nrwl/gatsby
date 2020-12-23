@@ -24,8 +24,12 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "packages/gatsby-plugin/jest.config.js",
-            "passWithNoTests": true
-          }
+            "passWithNoTests": true,
+            "tsConfig": "packages/gatsby-plugin/tsconfig.spec.json"
+          },
+          "outputs": [
+            "coverage/packages/gatsby-plugin"
+          ]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -64,7 +68,10 @@
               }
             ],
             "srcRootForCompilationRoot": "packages/gatsby-plugin"
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "publish": {
           "builder": "@nrwl/workspace:run-commands",
