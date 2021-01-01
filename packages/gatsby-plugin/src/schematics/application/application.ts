@@ -50,43 +50,46 @@ interface NormalizedSchema extends GatsbyPluginSchematicSchema {
 }
 
 export default function (options: GatsbyPluginSchematicSchema): Rule {
-  const normalizedOptions = normalizeOptions(options);
-  return chain([
-    init({
-      ...options,
-      skipFormat: true,
-    }),
-    addLintFiles(normalizedOptions.projectRoot, Linter.EsLint, {
-      localConfig: {
-        ...reactEslintJson,
-        overrides: [
-          {
-            files: ['*.tsx', '*.ts'],
-            rules: {
-              '@typescript-eslint/camelcase': 'off',
+  return (host: Tree, context: SchematicContext) => {
+    const normalizedOptions = normalizeOptions(host, options);
+    return chain([
+      init({
+        ...options,
+        skipFormat: true,
+      }),
+      addLintFiles(normalizedOptions.projectRoot, Linter.EsLint, {
+        localConfig: {
+          ...reactEslintJson,
+          overrides: [
+            {
+              files: ['*.tsx', '*.ts'],
+              rules: {
+                '@typescript-eslint/camelcase': 'off',
+              },
             },
-          },
-        ],
-      },
-      extraPackageDeps: extraEslintDependencies,
-    }),
-    addProject(normalizedOptions),
-    addProjectToNxJsonInTree(normalizedOptions.projectName, {
-      tags: normalizedOptions.parsedTags,
-    }),
-    createApplicationFiles(normalizedOptions),
-    addStyleDependencies(options.style),
-    addJest(normalizedOptions),
-    updateJestConfig(normalizedOptions),
-    updateEslintConfig(normalizedOptions),
-    addCypress(normalizedOptions),
-    addPrettierIgnoreEntry(normalizedOptions),
-    addGitIgnoreEntry(normalizedOptions),
-    formatFiles(),
-  ]);
+          ],
+        },
+        extraPackageDeps: extraEslintDependencies,
+      }),
+      addProject(normalizedOptions),
+      addProjectToNxJsonInTree(normalizedOptions.projectName, {
+        tags: normalizedOptions.parsedTags,
+      }),
+      createApplicationFiles(normalizedOptions),
+      addStyleDependencies(options.style),
+      addJest(normalizedOptions),
+      updateJestConfig(normalizedOptions),
+      updateEslintConfig(normalizedOptions),
+      addCypress(normalizedOptions),
+      addPrettierIgnoreEntry(normalizedOptions),
+      addGitIgnoreEntry(normalizedOptions),
+      formatFiles(),
+    ]);
+  };
 }
 
 function normalizeOptions(
+  host: Tree,
   options: GatsbyPluginSchematicSchema
 ): NormalizedSchema {
   const name = toFileName(options.name);
@@ -94,7 +97,9 @@ function normalizeOptions(
     ? `${toFileName(options.directory)}/${name}`
     : name;
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-  const projectRoot = `${projectRootDir(projectType)}/${projectDirectory}`;
+  const projectRoot = normalize(`${appsDir(host)}/${projectDirectory}`);
+
+  // const projectRoot = `${projectRootDir(projectType)}/${projectDirectory}`;
   const parsedTags = options.tags
     ? options.tags.split(',').map((s) => s.trim())
     : [];
